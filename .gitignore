@@ -9,3 +9,5 @@ CaseData/
 *.db
 tmp/
 pages.json
+dummy_filename.docx
+dummy_filename.json
