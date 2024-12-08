@@ -237,59 +237,19 @@ def md_to_text(md: str) -> str:
 
 ### VISUALIZATION & RENDERING ###
 
-import tempfile
-from graphviz import Source
-import streamlit as st
-
 def render_graph(response: str, case: str) -> bool:
-    """
-    Renders a graph using Graphviz and displays it in Streamlit.
-
-    Args:
-        response (str): The response containing the DOT graph definition.
-        case (str): Identifier for the case (used for file naming).
-
-    Returns:
-        bool: True if the graph is successfully rendered, False otherwise.
-    """
-    try:
-        # Ensure the response is a valid string
-        response = response.strip()
-        if not response:
-            st.warning("Empty response. No graph to render.")
-            return False
-
-        # Check if the response is wrapped in code block markers (e.g., ``` or quotes)
-        if response.startswith("```") and response.endswith("```"):
-            dot_string = response[3:-3].strip()  # Remove the triple backticks
-        elif response.startswith('"') and response.endswith('"'):
-            dot_string = response[1:-1].strip()  # Remove enclosing quotes
-        else:
-            dot_string = response  # Assume it's a valid DOT string
-
-        # Validate DOT string content
-        if not dot_string:
-            st.warning("Invalid DOT string. Unable to render graph.")
-            return False
-
-        # Render the graph using Graphviz
-        graph = Source(dot_string, format="png")
-        
-        # Use a temporary file to save the rendered graph
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp_file:
-            graph.render(tmp_file.name, cleanup=True)
-            st.image(
-                tmp_file.name + ".png",  # Graphviz appends .png to the rendered file
-                use_container_width=True,
-                caption=f"Relaciones entre los intervinientes del caso «{case}» para los principales abonos y cargos."
-            )
-        
+    response = str(response)
+    if (response.startswith("```") and response.endswith("```")) or \
+       (response.startswith('"') and (response.endswith('"') or response.endswith('"\n'))):
+        try:
+            dot_string = response[6:-3]
+            graph = Source(dot_string, filename=f"tmp/graphs/{case}.gv", format="png")
+            st.image(graph.render(), use_container_width=True, caption=f"Relaciones entre los intervinientes del caso «{case}» para los principales abonos y cargos.")
+        except Exception as e:
+            pass
+            # st.error(f"Error al renderizar el grafo de los intervinientes: {e}")
         return True
-
-    except Exception as e:
-        st.error(f"Error rendering graph: {e}")
-        return False
-
+    return False
 
 ### NARRATIVE & DOCUMENT UTILITIES ###
 
