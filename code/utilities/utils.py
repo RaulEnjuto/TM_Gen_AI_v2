@@ -232,7 +232,7 @@ def render_graph(response: str, case: str) -> bool:
         try:
             dot_string = response[6:-3]
             graph = Source(dot_string, filename=f"tmp/graphs/{case}.gv", format="png")
-            st.image(graph.render(), use_column_width=True, caption=f"Relaciones entre los intervinientes del caso «{case}» para los principales abonos y cargos.")
+            st.image(graph.render(), use_container_width=True, caption=f"Relaciones entre los intervinientes del caso «{case}» para los principales abonos y cargos.")
         except Exception as e:
             pass
             # st.error(f"Error al renderizar el grafo de los intervinientes: {e}")

@@ -319,47 +319,58 @@ Se ha detectado que el interviniente adicional **[Nombre]** ha realizado múltip
 
 recomendacion_prenarrativa_template = \
 f"""Responde a la siguiente pregunta en formato Markdown, indicando un título claro de la pregunta (### Heading level 3) y el contenido de la respuesta (text) a continuación:
-- Recomendación inicial para el caso
-Para responder esta pregunta, apóyate en analizar total o parcialmente algunos de los siguientes puntos:
 
-- Indica si se recomienda el archivo del expediente si se considera justificada la operativa en base a todo el análisis previo
-- Indica si se recomienda el escalado del expediente a la fase de investigación si no se considera justificada la operativa en base a todo el análisis previo
-- Indica la prioridad del caso para ser investigado: Alta, Media o Baja, en función de la gravedad considerada para la alerta.
+### Recomendación inicial para el caso
 
-Recuerda ser crítico pero conservador en la recomendación de archivado o escalado del caso. Además, eres un sistema experto en Transaction Monitoring, por lo que debes validar tu respuesta e identificar casos que sean falsos positivos para recomendar su archivado. Considera si las transacciones son consistentes con el perfil conocido del cliente o si hay documentación justificativa suficiente para respaldar las transacciones. Si encuentras que la operativa es justificada y consistente con el perfil del cliente, recomienda el archivo del expediente como un falso positivo. En caso contrario, recomienda el escalado del caso.
+Para responder, analiza los siguientes puntos de manera total o parcial:
 
-A la hora de analizar el caso para recomendar su archivado o escalado, recuerda que las alertas generadas de forma manual suponen una mayor probabilidad de escalado y reporte, por lo que debes ser más esctricto con estos casos.
- 
+- Indica si se recomienda **archivar** el expediente si se considera que la operativa está justificada según el análisis previo.
+- Indica si se recomienda **escalar** el expediente a la fase de investigación si la operativa no está justificada según el análisis previo.
+- Establece la **prioridad** del caso para investigación: **Alta**, **Media**, o **Baja**, según la gravedad de la alerta.
+
+**Recuerda:**
+- Sé crítico, pero conservador en la recomendación de archivado o escalado del caso.
+- Eres un sistema experto en **Transaction Monitoring**, por lo que es fundamental identificar casos que sean **falsos positivos** para recomendar su archivado.  
+- Considera si las transacciones son consistentes con el perfil conocido del cliente o si hay documentación justificativa suficiente. Si encuentras que la operativa es justificada y consistente con el perfil, recomienda el archivo del expediente como un falso positivo. De lo contrario, recomienda el escalado.
+- Solo categoriza como **falsos positivos** los casos que tengas muy seguros, ya que es importante no categorizar como falso positivo algo que pueda ser un verdadero positivo.
+
+**Importante:** Las alertas creadas manualmente tienen una mayor probabilidad de escalado y reporte, por lo que debes ser más estricto en estos casos.
+
+Prioridad del caso:
 Para determinar la prioridad del caso, considera los siguientes criterios:
-- Consistencia y justificación de la operativa: Evalúa si la operativa es consistente con el perfil del cliente y si hay justificación de las transacciones.
-- Tipo de alerta: Las tipos de alerta de mayor gravedad deberían tener una prioridad más alta.
-- Importe total de abonos y cargos: Un mayor importe total puede indicar un mayor riesgo. Por ejemplo, menos de 100.000€ en importe de abonos y cargos se considera bajo riesgo, entre 100.000€ y 500.000€ riesgo medio, y más de 500.000€ riesgo alto.
-- Riesgo del cliente: Clientes con un alto score de riesgo deben ser priorizados.
-- Perfil del cliente: PEPs (Personas Expuestas Políticamente) deben ser priorizados automáticamente.
- 
-A continuación tienes un risk assessment del nivel de riesgo de cada Tipo de Alerta:
- - Riesgo de Alertas creadas de forma manual (Prioridad Muy Alta): Las alertas creadas de forma manual (ej: Comunicaciones de Operativa Sospechosa) tienen mayor prioridad, y suponen una mayor probabilidad de escalado y reporte.
- - Riesgos con prioridad Alta: Transferencias Internacionales Alto Riesgo
- - Riesgos con prioridad Media-Alta: Uso de Efectivo
- - Riesgos con prioridad Media: Colectivos de Riesgo / Activos Vulnerables; Estructuras Complejas; Corrupción (PEPs); Fraude (cuentas mula, TPV, adeudos...)
- - Riesgos con prioridad Media-Baja: Rápido Movimiento de Fondos; Productos y Servicios que facilitan la ocultación de identidad
- - Riesgos con prioridad Baja: Financiación del Terrorismo; Tráfico de Personas (ruta del dinero); Banca Corresponsal; Remesas Familiares; Cuentas limitadas/colectivos vulnerables que superan umbrales y/o condiciones permitidas
- 
-Genera la respuesta en tres párrafos, un primer párrafo donde hagas únicamente la recomendación del escalado o archivado del expediente, un segundo párrafo donde expliques el por qué de esta recomendación inicial, y un tercer párrafo donde indiques la prioridad del caso para ser investigado y los motivos.
- 
-Un ejemplo o plantilla de respuesta de esta pregunta es:
- 
-### Recomendación inicial
- 
-(Primer párrafo) Teniendo en cuenta la naturaleza de la alerta, información disponible sobre el interviniente, así como su perfil transaccional analizado hasta el momento y la documentación disponible en la biblioteca documental, se recomienda el **[archivo/escalado]** del expediente.
- 
-(Segundo párrafo: explicación sobre la recomendación de escalado o archivado del caso a partir de la investigación realizada en las preguntas anteriores)
- 
-(Tercer párrafo: explicación sobre la prioridad de la alerta) La prioridad del caso para ser investigado es **[Muy Alta/Alta/Media-Alta/Media/Media-Baja/Baja]** basándose en los siguientes criterios...
- 
-Si no existe información disponible para alguno de los puntos o frases plantilla, no añadas la frase que hace referencia a ese punto.
-Solo si es relevante, añade un párrafo adicional debajo de la respuesta indicando que cierta información no está disponible. No se debe inventar información ni marcarla como XXXX.-
+
+- **Consistencia y justificación de la operativa**: Evalúa si la operativa es coherente con el perfil del cliente y si las transacciones están justificadas.
+- **Tipo de alerta**: Las alertas de mayor gravedad deben tener mayor prioridad.
+- **Importe total de abonos y cargos**: Un mayor importe puede indicar mayor riesgo. Ejemplos de categorización por riesgo:
+  - Menos de 100.000€: prioridad baja
+  - Entre 100.000€ y 500.000€: prioridad media
+  - Más de 500.000€: prioridad alta
+- **Riesgo del cliente**: Clientes con un alto score de riesgo deben ser priorizados.
+- **Perfil del cliente**: **PEPs (Personas Expuestas Políticamente)** deben ser priorizados automáticamente.
+
+A continuación, se proporciona un **risk assessment** del nivel de riesgo de cada tipo de alerta:
+
+- **Riesgo Muy Alto**: Alertas creadas manualmente (e.g., Comunicaciones de Operativa Sospechosa).
+- **Riesgo Alto**: Transferencias Internacionales de Alto Riesgo.
+- **Riesgo Media-Alta**: Uso de Efectivo.
+- **Riesgo Media**: Colectivos de Riesgo / Activos Vulnerables; Estructuras Complejas; Corrupción (PEPs); Fraude (Cuentas Mula, TPV, Adeudos).
+- **Riesgo Media-Baja**: Rápido Movimiento de Fondos; Productos y Servicios que facilitan la ocultación de identidad.
+- **Riesgo Bajo**: Financiación del Terrorismo; Tráfico de Personas; Banca Corresponsal; Remesas Familiares.
+
+### Plantilla de respuesta esperada:
+**Primer párrafo:** Teniendo en cuenta la naturaleza de la alerta, la información disponible sobre el interviniente, su perfil transaccional y la documentación disponible, se recomienda el **[archivo/escalado]** del expediente.
+
+**Segundo párrafo:** Explica el razonamiento detrás de la recomendación de escalado o archivado del expediente a partir del análisis realizado en las preguntas previas.
+
+**Tercer párrafo:** La prioridad del caso para ser investigado es **[Muy Alta/Alta/Media-Alta/Media/Media-Baja/Baja]**, basada en los siguientes criterios...
+
+**Notas:**
+- Si no tienes información para alguno de los puntos, omite esa parte de la respuesta.
+- Si alguna información es relevante pero no está disponible, añade un párrafo adicional indicando que la información está pendiente o no está disponible.
+- No inventes información ni utilices valores como "XXXX". 
+
 """
+
 
 conclusion_final_template = \
 f"""Responde a la siguiente pregunta en formato Markdown, indicando un título claro de la pregunta (### Heading level 3) y el contenido de la respuesta (text) a continuación:
@@ -392,7 +403,7 @@ Genera la respuesta en tres párrafos, un primer párrafo donde hagas la recomen
 
 Un ejemplo o plantilla de respuesta de esta pregunta es:
 
-(Primer párrafo) Teniendo en cuenta la naturaleza de la alerta, la información disponible sobre el interviniente, su perfil investigado hasta el momento, y la documentación y explicaciones aportadas, se recomienda el **[a) archivo del expediente // b) calificación del expediente como operativa sospechosa y generación del Suspicious Activity Report]**.
+(Primer párrafo) Teniendo en cuenta la naturaleza de la alerta, la información disponible sobre el interviniente, su perfil investigado hasta el momento, y la documentación y explicaciones aportadas, se recomienda el **[ archivo del expediente // calificación del expediente como operativa sospechosa y generación del Suspicious Activity Report]**.
  
 (Segundo párrafo: explicación sobre la recomendación de archivado o calificación del expediente como operativa sospechosa a partir de la investigación realizada en las preguntas anteriores)
  
