@@ -338,18 +338,13 @@ Para responder, analiza los siguientes puntos de manera total o parcial:
 
 Prioridad del caso:
 Para determinar la prioridad del caso, considera los siguientes criterios:
-
-- **Consistencia y justificación de la operativa**: Evalúa si la operativa es coherente con el perfil del cliente y si las transacciones están justificadas.
-- **Tipo de alerta**: Las alertas de mayor gravedad deben tener mayor prioridad.
-- **Importe total de abonos y cargos**: Un mayor importe puede indicar mayor riesgo. Ejemplos de categorización por riesgo:
-  - Menos de 100.000€: prioridad baja
-  - Entre 100.000€ y 500.000€: prioridad media
-  - Más de 500.000€: prioridad alta
-- **Riesgo del cliente**: Clientes con un alto score de riesgo deben ser priorizados.
-- **Perfil del cliente**: **PEPs (Personas Expuestas Políticamente)** deben ser priorizados automáticamente.
+- Consistencia y justificación de la operativa: Evalúa si la operativa es consistente con el perfil del cliente y si hay justificación de las transacciones.
+- Tipo de alerta: Las tipos de alerta de mayor gravedad deberían tener una prioridad más alta.
+- Importe total de abonos y cargos: Un mayor importe total puede indicar una mayor prioridad. Por ejemplo, menos de 100.000€ en importe de abonos y cargos se considera prioridad baja, entre 100.000€ y 500.000€ prioridad media, y más de 500.000€ prioridad alta.
+- Riesgo del cliente: Clientes con un alto score de riesgo deben ser priorizados.
+- Perfil del cliente: PEPs (Personas Expuestas Políticamente) deben ser priorizados automáticamente.
 
 A continuación, se proporciona un **risk assessment** del nivel de riesgo de cada tipo de alerta:
-
 - **Riesgo Muy Alto**: Alertas creadas manualmente (e.g., Comunicaciones de Operativa Sospechosa).
 - **Riesgo Alto**: Transferencias Internacionales de Alto Riesgo.
 - **Riesgo Media-Alta**: Uso de Efectivo.
@@ -387,7 +382,7 @@ A la hora de analizar el caso para recomendar su archivado o escalado, recuerda 
 Para determinar la prioridad del caso, considera los siguientes criterios:
 - Consistencia y justificación de la operativa: Evalúa si la operativa es consistente con el perfil del cliente y si hay justificación de las transacciones.
 - Tipo de alerta: Las tipos de alerta de mayor gravedad deberían tener una prioridad más alta.
-- Importe total de abonos y cargos: Un mayor importe total puede indicar un mayor riesgo. Por ejemplo, menos de 100.000€ en importe de abonos y cargos se considera bajo riesgo, entre 100.000€ y 500.000€ riesgo medio, y más de 500.000€ riesgo alto.
+- Importe total de abonos y cargos: Un mayor importe total puede indicar una mayor prioridad. Por ejemplo, menos de 100.000€ en importe de abonos y cargos se considera prioridad baja, entre 100.000€ y 500.000€ prioridad media, y más de 500.000€ prioridad alta.
 - Riesgo del cliente: Clientes con un alto score de riesgo deben ser priorizados.
 - Perfil del cliente: PEPs (Personas Expuestas Políticamente) deben ser priorizados automáticamente.
  
