@@ -13,7 +13,6 @@ from typing import List, Dict, Union, IO, Optional
 import markdown
 from bs4 import BeautifulSoup
 from streamlit_extras.switch_page_button import switch_page
-from streamlit_cookies_manager import CookieManager
 import pandas as pd
 import tiktoken
 from docx import Document
@@ -21,7 +20,6 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.text.paragraph import CT_P
 from docx.oxml.table import CT_Tbl
 from graphviz import Source
-from pyvis.network import Network
 import tempfile
 
 ### CONSTANTS ###
