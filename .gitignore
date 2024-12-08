@@ -1,0 +1,11 @@
+.venv
+.env
+.env.json
+__pycache__
+.ipynb_checkpoints/
+*.ipynb
+narratives/
+CaseData/
+*.db
+tmp/
+pages.json
